@@ -16,7 +16,17 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 24
     },
-    input: {
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginTop: -27
+    },
+    input: {
+        flex: 1,
+        marginRight: 4
+    },
+    addToDoButton: {
+        width: 52,
+        height: 52,
     }
 })
