@@ -10,9 +10,9 @@ export function Input({style, ...props}: TextInputProps) {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             style={[
+                styles.container,
                 style, 
-                isFocused || !!props.value ? 
-                    styles.focusedContainer : styles.container
+                isFocused && styles.focusedContainer
                 ]}
             placeholderTextColor="#808080"
             {...props}
