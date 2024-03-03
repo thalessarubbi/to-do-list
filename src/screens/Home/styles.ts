@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 24
     },
-    
+
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -86,4 +86,8 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: '#808080'
     },
+
+    task: {
+        marginBottom: 8
+    }
 })
