@@ -17,10 +17,6 @@ export function Home() {
     const [tasks, setTasks] = useState<Task[]>([])
     const [taskText, setTaskText] = useState('')
 
-    const todosCreated = useMemo(() => {
-        return tasks.filter(task => !task.isChecked).length
-    },[tasks])
-
     const todosCompleted = useMemo(() => {
         return tasks.filter(task => task.isChecked).length
     },[tasks])
@@ -84,7 +80,7 @@ export function Home() {
                             <View style={styles.toDoHeaderStatusContainer}>
                                 <Text style={styles.toDoHeaderCreated}>Criadas</Text>
                                 <View style={styles.toDoCountContainer}>
-                                    <Text style={styles.toDoCount}>{todosCreated}</Text>
+                                    <Text style={styles.toDoCount}>{tasks.length}</Text>
                                 </View>
                             </View>
 
