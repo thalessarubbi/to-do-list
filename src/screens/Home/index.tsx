@@ -27,7 +27,7 @@ export function Home() {
 
     function handleAddTask() {
         const alertTitle = 'Não foi possível adicionar a tarefa!'
-        
+
         if (taskText.length < 1) {
             return Alert.alert(
                 alertTitle,
@@ -48,7 +48,14 @@ export function Home() {
     }
 
     function handleCheckboxPressed(text: string) {
-        //TODO: select checkbox by text
+        const tasksUpdate = tasks.slice()
+        const taskUpdate = tasksUpdate.find(task => task.text === text)
+
+        if (taskUpdate) {
+            taskUpdate.isChecked = !taskUpdate.isChecked
+            setTasks(tasksUpdate)
+        }
+        
     }
 
     function handleDeleteTask(text: string) {

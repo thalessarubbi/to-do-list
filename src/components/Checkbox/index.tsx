@@ -12,7 +12,7 @@ export function Checkbox({ checked = false, onCheckValueChange }: CheckboxProps)
     return (
         <Pressable
             style={[styles.container, checked && styles.checkedContainer]}
-            onPress={() => onCheckValueChange}>
+            onPress={() => onCheckValueChange()}>
             {checked && <Ionicons name="checkmark" size={10} color="white" />}
         </Pressable>
     )   

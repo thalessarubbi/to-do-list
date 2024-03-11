@@ -14,7 +14,7 @@ export function Task({ task, isChecked, onCheckValueChange, onDeleteTask, style 
     return (
         <View style={[styles.container, isChecked && styles.containerDone, style]}>
             <Checkbox 
-                onCheckValueChange={onCheckValueChange} 
+                onCheckValueChange={() => onCheckValueChange()} 
                 checked={isChecked} 
                 />
             <Text style={[styles.task, isChecked && styles.taskDone]}>{task}</Text>
