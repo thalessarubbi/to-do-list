@@ -55,7 +55,7 @@ export function Home() {
     }
 
     function handleDeleteTask(text: string) {
-        //TODO: delete checkbox by text
+        setTasks(prevState => prevState.filter(task => task.text !== text))
     }
 
     return (
