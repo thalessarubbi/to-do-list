@@ -1,12 +1,12 @@
+import { TaskListEmptyComponent } from "../../components/TaskListEmptyComponent"
 import { TaskListHeader } from "../../components/TaskListHeader"
-import { Alert, FlatList, Text, View } from "react-native"
+import { Alert, FlatList, View } from "react-native"
 import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
 import { Task } from "../../components/Task"
 import { useMemo, useState } from "react"
 import { styles } from "./styles"
 
-import ClipboardIcon from "../../assets/icons/clipboard-icon.svg"
 import LogoImg from "../../../assets/logo.svg"
 
 type Task = {
@@ -64,6 +64,7 @@ export function Home() {
             <View style={styles.logo}>
                 <LogoImg width={110} height={32} />
             </View>
+
             <View style={styles.toDoContainer}>
                 <View style={styles.inputContainer}>
                     <Input 
@@ -73,6 +74,7 @@ export function Home() {
                         value={taskText}/>
                     <Button style={styles.addToDoButton} icon="plus" onPress={handleAddTask} />
                 </View>
+
                 <FlatList
                      data={tasks}
                      keyExtractor={item => String(item.text)}
@@ -90,15 +92,7 @@ export function Home() {
                             onDeleteTask={() => handleDeleteTask(item.text)}/>
                     }
                     ListEmptyComponent={() => 
-                        <View style={styles.emptyContainer}>
-                            <ClipboardIcon />
-                            <Text style={styles.emptyTitle}>
-                                Você ainda não tem tarefas cadastradas
-                            </Text>
-                            <Text style={styles.emptyDescription}>
-                                Crie tarefas e organize seus itens a fazer
-                            </Text>
-                        </View>
+                        <TaskListEmptyComponent />
                     }
                 />
             </View>
