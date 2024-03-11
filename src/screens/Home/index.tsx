@@ -1,40 +1,62 @@
 import { FlatList, Text, View } from "react-native"
+import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
+import { Task } from "../../components/Task"
+import { useMemo, useState } from "react"
 import { styles } from "./styles"
 
 import ClipboardIcon from "../../assets/icons/clipboard-icon.svg"
-import { Button } from "../../components/Button"
 import LogoImg from "../../../assets/logo.svg"
-import { Task } from "../../components/Task"
+
+type Task = {
+    id: number
+    text: string
+    isChecked: boolean
+}
+
+const initialTasks = [
+    {
+        id: 0,
+        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+        isChecked: true
+    },
+    {
+        id: 1,
+        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+        isChecked: false
+    },
+    {
+        id: 2,
+        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+        isChecked: true
+    },
+    {
+        id: 3,
+        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+        isChecked: false
+    },
+    {
+        id: 4,
+        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
+        isChecked: false
+    }
+]
 
 export function Home() {
-    const tasks = [
-        {
-            id: 0,
-            text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-            isChecked: false
-        },
-        {
-            id: 1,
-            text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-            isChecked: false
-        },
-        {
-            id: 2,
-            text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-            isChecked: false
-        },
-        {
-            id: 3,
-            text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-            isChecked: false
-        },
-        {
-            id: 4,
-            text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-            isChecked: false
-        }
-    ]
+    const [tasks, setTasks] = useState<Task[]>(initialTasks)
+    const [taskText, setTaskText] = useState('')
+
+    const todosCreated = useMemo(() => {
+        return tasks.filter(task => !task.isChecked).length
+    },[tasks])
+
+    const todosCompleted = useMemo(() => {
+        return tasks.filter(task => task.isChecked).length
+    },[tasks])
+
+    function handleAddTask() {
+        //TODO: select checkbox by id
+    }
 
     function handleCheckboxPressed(id: number) {
         //TODO: select checkbox by id
@@ -52,9 +74,11 @@ export function Home() {
             <View style={styles.toDoContainer}>
                 <View style={styles.inputContainer}>
                     <Input 
-                        style={styles.input} 
-                        placeholder="Adicione uma nova tarefa" />
-                    <Button style={styles.addToDoButton} icon="plus" />
+                        placeholder="Adicione uma nova tarefa"
+                        style={styles.input}
+                        onChangeText={setTaskText}
+                        value={taskText}/>
+                    <Button style={styles.addToDoButton} icon="plus" onPress={handleAddTask} />
                 </View>
                 <FlatList
                      data={tasks}
@@ -64,14 +88,14 @@ export function Home() {
                             <View style={styles.toDoHeaderStatusContainer}>
                                 <Text style={styles.toDoHeaderCreated}>Criadas</Text>
                                 <View style={styles.toDoCountContainer}>
-                                    <Text style={styles.toDoCount}>0</Text>
+                                    <Text style={styles.toDoCount}>{todosCreated}</Text>
                                 </View>
                             </View>
 
                             <View style={styles.toDoHeaderStatusContainer}>
                                 <Text style={styles.toDoHeaderDone}>Concluídas</Text>
                                 <View style={styles.toDoCountContainer}>
-                                    <Text style={styles.toDoCount}>0</Text>
+                                    <Text style={styles.toDoCount}>{todosCompleted}</Text>
                                 </View>
                             </View>
                         </View>
