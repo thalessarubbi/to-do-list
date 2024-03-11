@@ -1,3 +1,4 @@
+import { TaskListHeader } from "../../components/TaskListHeader"
 import { Alert, FlatList, Text, View } from "react-native"
 import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
@@ -17,7 +18,7 @@ export function Home() {
     const [tasks, setTasks] = useState<Task[]>([])
     const [taskText, setTaskText] = useState('')
 
-    const todosCompleted = useMemo(() => {
+    const tasksCompleted = useMemo(() => {
         return tasks.filter(task => task.isChecked).length
     },[tasks])
 
@@ -76,21 +77,9 @@ export function Home() {
                      data={tasks}
                      keyExtractor={item => String(item.text)}
                      ListHeaderComponent={() => 
-                        <View style={styles.toDoHeaderContainer}>
-                            <View style={styles.toDoHeaderStatusContainer}>
-                                <Text style={styles.toDoHeaderCreated}>Criadas</Text>
-                                <View style={styles.toDoCountContainer}>
-                                    <Text style={styles.toDoCount}>{tasks.length}</Text>
-                                </View>
-                            </View>
-
-                            <View style={styles.toDoHeaderStatusContainer}>
-                                <Text style={styles.toDoHeaderDone}>Concluídas</Text>
-                                <View style={styles.toDoCountContainer}>
-                                    <Text style={styles.toDoCount}>{todosCompleted}</Text>
-                                </View>
-                            </View>
-                        </View>
+                        <TaskListHeader 
+                            tasksCompleted={tasksCompleted} 
+                            tasksCreated={tasks.length} />
                     }
                      renderItem={({item}) => 
                         <Task 
