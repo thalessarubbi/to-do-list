@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from "react-native"
+import { Alert, FlatList, Text, View } from "react-native"
 import { Button } from "../../components/Button"
 import { Input } from "../../components/Input"
 import { Task } from "../../components/Task"
@@ -9,41 +9,12 @@ import ClipboardIcon from "../../assets/icons/clipboard-icon.svg"
 import LogoImg from "../../../assets/logo.svg"
 
 type Task = {
-    id: number
     text: string
     isChecked: boolean
 }
 
-const initialTasks = [
-    {
-        id: 0,
-        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-        isChecked: true
-    },
-    {
-        id: 1,
-        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-        isChecked: false
-    },
-    {
-        id: 2,
-        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-        isChecked: true
-    },
-    {
-        id: 3,
-        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-        isChecked: false
-    },
-    {
-        id: 4,
-        text: 'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-        isChecked: false
-    }
-]
-
 export function Home() {
-    const [tasks, setTasks] = useState<Task[]>(initialTasks)
+    const [tasks, setTasks] = useState<Task[]>([])
     const [taskText, setTaskText] = useState('')
 
     const todosCreated = useMemo(() => {
@@ -55,15 +26,33 @@ export function Home() {
     },[tasks])
 
     function handleAddTask() {
-        //TODO: select checkbox by id
+        const alertTitle = 'Não foi possível adicionar a tarefa!'
+        
+        if (taskText.length < 1) {
+            return Alert.alert(
+                alertTitle,
+                'Por favor, insira o nome da tarefa'
+            )
+        } else if (tasks.find(task => task.text === taskText)) {
+            return Alert.alert(
+                alertTitle,
+                'Esta tarefa já está cadastrada'
+            )
+        } else {
+            setTasks(prevState => [
+                ...prevState, 
+                { text: taskText, isChecked: false }
+            ])
+            setTaskText('')
+        }
     }
 
-    function handleCheckboxPressed(id: number) {
-        //TODO: select checkbox by id
+    function handleCheckboxPressed(text: string) {
+        //TODO: select checkbox by text
     }
 
-    function handleDeleteTask(id: number) {
-        //TODO: delete checkbox by id
+    function handleDeleteTask(text: string) {
+        //TODO: delete checkbox by text
     }
 
     return (
@@ -82,7 +71,7 @@ export function Home() {
                 </View>
                 <FlatList
                      data={tasks}
-                     keyExtractor={item => String(item.id)}
+                     keyExtractor={item => String(item.text)}
                      ListHeaderComponent={() => 
                         <View style={styles.toDoHeaderContainer}>
                             <View style={styles.toDoHeaderStatusContainer}>
@@ -105,8 +94,8 @@ export function Home() {
                             style={styles.task}
                             task={item.text} 
                             isChecked={item.isChecked} 
-                            onCheckValueChange={() => handleCheckboxPressed(item.id)}
-                            onDeleteTask={() => handleDeleteTask(item.id)}/>
+                            onCheckValueChange={() => handleCheckboxPressed(item.text)}
+                            onDeleteTask={() => handleDeleteTask(item.text)}/>
                     }
                     ListEmptyComponent={() => 
                         <View style={styles.emptyContainer}>
