@@ -2,40 +2,40 @@ import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
     toDoHeaderContainer: {
-        height: 19,
-        flexDirection: 'row',
         justifyContent: 'space-between',
+        flexDirection: 'row',
+        marginBottom: 20,
         marginTop: 35,
-        marginBottom: 20
+        height: 19
     },
     toDoHeaderStatusContainer: {
         flexDirection: 'row',
         alignItems: 'center'
     },
     toDoHeaderCreated: {
+        fontFamily: 'Bold',
         color: '#4EA8DE',
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginRight: 8
+        marginRight: 8,
+        fontSize: 14
     },
     toDoCountContainer: {
-        width: 25,
+        backgroundColor: '#333333',
         justifyContent: 'center',
         paddingHorizontal: 8,
         paddingVertical: 2,
-        backgroundColor: '#333333',
-        borderRadius: 999
+        borderRadius: 999,
+        width: 25
     },
     toDoCount: {
+        textAlign: 'center',
+        fontFamily: 'Bold',
         color: '#D9D9D9',
-        fontSize: 12,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        fontSize: 12
     },
     toDoHeaderDone: {
+        fontFamily: 'Bold',
         color: '#8284FA',
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginRight: 8
+        marginRight: 8,
+        fontSize: 14
     },
 })
